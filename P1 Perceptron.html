@@ -13084,25 +13084,38 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Perceptron</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span>
+        
         
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># print </span>
         <span class="k">return</span> <span class="s1">&#39;Perceptron(Bias=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, Weights=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, inputs=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
     
     
-    <span class="k">def</span> <span class="nf">step_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
         <span class="c1"># Houdt bij wat de som is om over de threshhold te komen.</span>
         <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
-        
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span>
         <span class="c1">#ittereert over de inputs en de weights en verminigvuldigd ze.</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">)):</span>
             <span class="n">total</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -13132,24 +13145,27 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
 <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<span class="c1">#Maakt een perceptron aan met de juiste waardes om de gate te simuleren en geeft de input daar aan mee</span>
+<span class="n">InvertGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="mf">0.5</span> <span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.51</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
 <span class="c1">#loopt over de inputs</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)):</span>
     <span class="n">pair</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="c1">#Maakt een perceptron aan met de juiste waardes om de gate te simuleren en geeft de input daar aan mee</span>
-    <span class="n">InvertGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="mf">0.5</span> <span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.51</span><span class="p">],</span> <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
     
     <span class="c1">#Maakt een paar van de input en output</span>
     <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InvertGate</span><span class="o">.</span><span class="n">step_function</span><span class="p">())</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InvertGate</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
     <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
-<span class="n">results</span>
+                
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Input&#39;</span><span class="p">,</span> <span class="s1">&#39;Output&#39;</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13162,15 +13178,18 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[69]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[[[0], 1], [[1], 0]]</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input      Output
+-------  --------
+[0, 0]          1
+[0, 1]          0
+[1, 0]          0
+[1, 1]          0
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -13179,24 +13198,26 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
 <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">#Maakt een perceptron aan met de juiste waardes om de gate te simuleren en geeft de input daar aan mee</span>
+<span class="n">AndGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 
 <span class="c1">#loopt over de inputs</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)):</span>
     <span class="n">pair</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="c1">#Maakt een perceptron aan met de juiste waardes om de gate te simuleren en geeft de input daar aan mee</span>
-    <span class="n">AndGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
     
     <span class="c1">#Maakt een paar van de input en output</span>
     <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AndGate</span><span class="o">.</span><span class="n">step_function</span><span class="p">())</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AndGate</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
     <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
-<span class="n">results</span>
+                
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Input&#39;</span><span class="p">,</span> <span class="s1">&#39;Output&#39;</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13209,15 +13230,18 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[70]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[[[0, 0], 0], [[0, 1], 0], [[1, 0], 0], [[1, 1], 1]]</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input      Output
+-------  --------
+[0, 0]          0
+[0, 1]          0
+[1, 0]          0
+[1, 1]          1
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -13226,24 +13250,26 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
 <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
 
+<span class="c1">#Maakt een perceptron aan met de juiste waardes om de gate te simuleren en geeft de input daar aan mee</span>
+<span class="n">OrGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+
 <span class="c1">#loopt over de inputs</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)):</span>
     <span class="n">pair</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="c1">#Maakt een perceptron aan met de juiste waardes om de gate te simuleren en geeft de input daar aan mee</span>
-    <span class="n">OrGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
     
     <span class="c1">#Maakt een paar van de input en output</span>
     <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OrGate</span><span class="o">.</span><span class="n">step_function</span><span class="p">())</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OrGate</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
     <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
-<span class="n">results</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Input&#39;</span><span class="p">,</span> <span class="s1">&#39;Output&#39;</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13256,15 +13282,18 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[71]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[[[0, 0], 0], [[0, 1], 1], [[1, 0], 1], [[1, 1], 1]]</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input      Output
+-------  --------
+[0, 0]          0
+[0, 1]          1
+[1, 0]          1
+[1, 1]          1
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -13281,7 +13310,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
@@ -13292,14 +13321,14 @@ div#notebook {
     <span class="n">pair</span> <span class="o">=</span> <span class="p">[]</span>
     
     <span class="c1">#Maakt een perceptron aan met de juiste waardes om de gate te simuleren en geeft de input daar aan mee</span>
-    <span class="n">NorGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="mi">0</span> <span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">NorGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="mi">0</span> <span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
     
     <span class="c1">#Maakt een paar van de input en output</span>
     <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NorGate</span><span class="o">.</span><span class="n">step_function</span><span class="p">())</span>
-    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NorGate</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span> 
     
-<span class="n">results</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Input&#39;</span><span class="p">,</span> <span class="s1">&#39;Output&#39;</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13312,15 +13341,18 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[72]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[[[0, 0], 1], [[0, 1], 0], [[1, 0], 0], [[1, 1], 0]]</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input      Output
+-------  --------
+[0, 0]          1
+[0, 1]          0
+[1, 0]          0
+[1, 1]          0
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -13350,25 +13382,243 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Perceptronlayer-&amp;-Network">Perceptronlayer &amp; Network<a class="anchor-link" href="#Perceptronlayer-&amp;-Network">&#182;</a></h2><p>Hier was het de bedoeling om een laag met perceptrons te maken en van verschillende lagen een netwerk maar daar kwam ik helaas niet uit.</p>
+<h2 id="Perceptronlayer-&amp;-Network">Perceptronlayer &amp; Network<a class="anchor-link" href="#Perceptronlayer-&amp;-Network">&#182;</a></h2><h3 id="Perceptronlayer">Perceptronlayer<a class="anchor-link" href="#Perceptronlayer">&#182;</a></h3><p>Hieronder maak ik als eerst een perceptronlayer aan. Die krijgt een lijst als input en output een lijst met evenveel elementen als perceptrons in die laag.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># #Perceptronlayer</span>
-<span class="c1"># class Perceptronlayer(object):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Perceptronlayer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     
-<span class="c1">#     def __init__(self, perceptron1, perceptron2, inputs):</span>
-<span class="c1">#         self.perceptron1 = perceptron1</span>
-<span class="c1">#         self.perceptron2 = perceptron2</span>
-<span class="c1">#         output = []</span>
-<span class="c1">#         input = self.inputs</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">perceptrons</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">perceptrons</span> <span class="o">=</span> <span class="n">perceptrons</span>     
     
+    
+    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="c1">#ittereert over de perceptrons</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">perceptrons</span><span class="p">)):</span>
+            <span class="c1"># Saved welke perceptron er aan de beurt is</span>
+            <span class="n">perceptron</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">perceptrons</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   
+            
+            <span class="c1">#Neemt de input en voert de activate functie uit met de waardes die die perceptron heeft</span>
+            <span class="n">total</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">perceptron</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">inputs</span><span class="p">))</span>
+              
+        
+        <span class="k">return</span> <span class="n">total</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="PerceptronNetwork">PerceptronNetwork<a class="anchor-link" href="#PerceptronNetwork">&#182;</a></h3><p>Nu kan ik een perceptron netwerk aanmaken door meerder layers aan elkaar te koppelen. Deze class heeft een functie feed_foward die de output van de vorige layer gebruikt als input voor de volgende itteratie. Tot slot return hij de laatste output</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">PerceptronNetwork</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">perceptronlayers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">perceptronlayers</span> <span class="o">=</span> <span class="n">perceptronlayers</span>     
+    
+    
+    <span class="k">def</span> <span class="nf">feed_foward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">perceptronlayers</span><span class="p">)):</span>
+            <span class="n">perceptronlayer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">perceptronlayers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   
+            <span class="n">output</span> <span class="o">=</span> <span class="n">perceptronlayer</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="n">output</span>
+            
+        <span class="k">return</span> <span class="n">output</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="XorGate">XorGate<a class="anchor-link" href="#XorGate">&#182;</a></h2><p>een Xorgate bestaat uit een laag met een NandGate en een OrGate. De output van die laag gaat door naar de tweede laag die bestaat uit een AndGate. De gewenste output van een XorGate is 1 als er een van de inputs juist is. Als beide onjuist of juist zijn moet de output 0 zijn. Daarvoor moet ik wel eerst een NandGate maken en testen, dat doe ik als eerst.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Maakt een perceptron aan met de juiste waardes om de gate te simuleren en geeft de input daar aan mee</span>
+<span class="n">NandGate</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="mi">1</span> <span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Loopt over de inputs</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)):</span>
+    <span class="n">pair</span> <span class="o">=</span> <span class="p">[]</span>
+
+    
+    <span class="c1"># Maakt een paar van de input en output</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NandGate</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+                
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Input&#39;</span><span class="p">,</span> <span class="s1">&#39;Output&#39;</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input      Output
+-------  --------
+[0, 0]          1
+[0, 1]          1
+[1, 0]          1
+[1, 1]          0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Nu ik een NandGate heb kan ik de layers maken die nodig zijn voor het netwerk. De OrGate en AndGate had ik al eerder gemaakt en getest dus die gebruik ik gewoon opnieuw.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Hiddenlayer1 bestaat uit een NandGate en OrGate</span>
+<span class="n">Hiddenlayer1</span> <span class="o">=</span> <span class="n">Perceptronlayer</span><span class="p">([</span><span class="n">Perceptron</span><span class="p">(</span><span class="mi">1</span> <span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])])</span>
+
+<span class="c1"># Hiddenlayer2 bestaat uit een AndGate</span>
+<span class="n">Hiddenlayer2</span> <span class="o">=</span> <span class="n">Perceptronlayer</span><span class="p">([</span><span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Nu ik de layers heb is het simpel om een test te schrijven voor de XorGate, dat doe ik hier onder.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Initialiseert het netwerk, de outputs en een lijst om de resultaten in op te slaan.</span>
+<span class="n">network</span> <span class="o">=</span> <span class="n">PerceptronNetwork</span><span class="p">([</span><span class="n">Hiddenlayer1</span><span class="p">,</span> <span class="n">Hiddenlayer2</span><span class="p">])</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Loopt over de inputs en maakt pairs net als in het vorige tests</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)):</span>
+    <span class="n">pair</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># Voegt de input toe aan de lijst pair</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+    <span class="c1"># Voegt de output van het netwerk toe aan de lijst pair</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">feed_foward</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    
+    <span class="c1"># Voegt het volledige paar toe aan de lijst results</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Input&#39;</span><span class="p">,</span> <span class="s1">&#39;Output&#39;</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input    Output
+-------  --------
+[0, 0]   [0]
+[0, 1]   [1]
+[1, 0]   [1]
+[1, 1]   [0]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Half-adder">Half adder<a class="anchor-link" href="#Half-adder">&#182;</a></h2><p>Een half adder bestaat uit twee layers, de eerste layer bestaat uit een nandgate, een orgate en een andgate. De tweede layer bestaat uit een gate die de waarde van alleen de Andgate doorgeeft. De AndGate verwerkt alleen de waardes van de Nand en OrGate. Wat er dus uit de laatste Andgate komt is de sum. Wat er doorgegeven wordt is de carry.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Hiddenlayer1 bestaat uit een NandGate, Orgate en AndGate</span>
+<span class="n">Hiddenlayer1</span> <span class="o">=</span> <span class="n">Perceptronlayer</span><span class="p">([</span><span class="n">Perceptron</span><span class="p">(</span><span class="mi">1</span> <span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]),</span> <span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])])</span>
+
+<span class="c1"># Hiddenlayer2 bestaat uit een gate die de waarde van de andgate door geeft en een Andgate die alleen de waardes</span>
+<span class="c1"># van de Nand en OrGate gebruikt</span>
+<span class="n">Hiddenlayer2</span> <span class="o">=</span> <span class="n">Perceptronlayer</span><span class="p">([</span><span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span><span class="n">Perceptron</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 </pre></div>
 
     </div>
@@ -13378,17 +13628,54 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># class PerceptronNetwork(object):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">network</span> <span class="o">=</span> <span class="n">PerceptronNetwork</span><span class="p">([</span><span class="n">Hiddenlayer1</span><span class="p">,</span> <span class="n">Hiddenlayer2</span><span class="p">])</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Loopt over de inputs en maakt pairs net als in het vorige tests</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)):</span>
+    <span class="n">pair</span> <span class="o">=</span> <span class="p">[]</span>
     
-<span class="c1">#     def __init__(self):</span>
-<span class="c1">#         self.perceptronlayers = []</span>
+    <span class="c1"># Voegt de input toe aan de lijst pair</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     
+    <span class="c1"># Voegt de output van het netwerk toe aan de lijst pair</span>
+    <span class="n">pair</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">feed_foward</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    
+    <span class="c1"># Voegt het volledige paar toe aan de lijst results</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Input&#39;</span><span class="p">,</span> <span class="s1">&#39;sum/carry&#39;</span><span class="p">]))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input    sum/carry
+-------  -----------
+[0, 0]   [0, 0]
+[0, 1]   [1, 0]
+[1, 0]   [1, 0]
+[1, 1]   [0, 1]
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
